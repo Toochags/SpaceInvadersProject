@@ -113,20 +113,20 @@ public class TimerDemo1 extends JFrame implements KeyListener
             if (bulletX >= enemyX && bulletX <= enemyX + 20        // within the width of the enemy
                            && bulletY <= 10 && bulletY >= 0)       // within the vertical span of the enemy
             {
-               playerScore++;
-               timerBullet.stop();                                 // stop bullet immediately to avoid double score                         
+               timerBullet.stop();                                 // stop bullet immediately to avoid double score  
+               enemyTimer.stop();
             }
             else if (bulletX >= enemy2X && bulletX <= enemy2X + 20 // within the width of the enemy
                            && bulletY <= 10 && bulletY >= 0)       // within the vertical span of the enemy
             {
-               playerScore++;
-               timerBullet.stop();                                 // stop bullet immediately to avoid double score                         
+               timerBullet.stop();                                 // stop bullet immediately to avoid double score  
+               enemy2Timer.stop();                 
             }
             else if (bulletY <= 0)                                 // bullet boundary detection at top of screen
             {
                timerBullet.stop();
             }
-             
+
            
             repaint();
          }
@@ -135,7 +135,7 @@ public class TimerDemo1 extends JFrame implements KeyListener
            
       enemyTimer.start();
       enemy2Timer.start();
-      playerTimer.start();
+      
    }
 
    public void paint(Graphics g)
@@ -144,23 +144,22 @@ public class TimerDemo1 extends JFrame implements KeyListener
       g.setColor(Color.gray);
       g.fillRect(0, 0, SCREEN_WIDTH, SCREEN_WIDTH);         // repaint background
      
-      g.setColor(Color.black);                              // repaint enemy at top of screen
+      g.setColor(Color.blue);                              // repaint enemy at top of screen
       g.fillRect(enemyX, 20, 20, 20);
           
-      g.setColor(Color.black);                              // repaint enemy at top of screen
+      g.setColor(Color.red);                              // repaint enemy2 at top of screen
       g.fillRect(enemy2X, 20, 20, 20);    
           
-      g.setColor(Color.blue);                               // repaint player at bottom of screen  
+      g.setColor(Color.green);                               // repaint player at bottom of screen  
       g.fillRect(playerX, 200, 20, 20);
                                       
       g.drawLine(bulletX, bulletY, bulletX, bulletY - 10);  // repaint bullet
           
-      g.setColor(Color.black);                              // update status
-      g.drawString("score: " + playerScore, 30, 250);
+      g.setColor(Color.orange);                              // update status
       g.drawString("press spacebar to fire bullet", 10, 280);
-      g.drawString("press left arrow to move left/ right arrow to move right", 10, 310);   
+      g.drawString("press a to move left / d to move right", 10, 310);   
    }
-  
+ 
    public void keyTyped(KeyEvent key)
    {
       // space bar shoots the bullet
@@ -169,8 +168,21 @@ public class TimerDemo1 extends JFrame implements KeyListener
          bulletX = playerX;         // line up bullet horizontally with current position of player
          bulletY = 180;          
          timerBullet.start();
+      }   
+      if (key.getKeyChar() == 'a')
+      {
+         if (playerX <= 0);                   
+            {
+               playerMoveAmount = -10;
+            }
       }
-          
+      if (key.getKeyChar() == 'd')
+      {
+         if (playerX >= SCREEN_WIDTH - 25);  
+               {
+                  playerMoveAmount = 10;
+               }
+      }
    }
   
    public void keyPressed(KeyEvent e) { }
