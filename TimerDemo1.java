@@ -140,18 +140,21 @@ public class TimerDemo1 extends JFrame implements KeyListener
             if (bulletX >= enemyX && bulletX <= enemyX + 5        // within the width of the enemy
                            && bulletY <= 10 && bulletY >= 0)       // within the vertical span of the enemy
             {
+               enemyX = -1000;
                timerBullet.stop();                                 // stop bullet immediately to avoid double score  
                enemyTimer.stop();
             }
             if (bulletX >= enemy2X + 10 && bulletX <= enemy2X + 10 // within the width of the enemy
                            && bulletY <= 10 && bulletY >= 0)       // within the vertical span of the enemy
             {
+               enemy2X = -1000;
                timerBullet.stop();                                 // stop bullet immediately to avoid double score  
                enemy2Timer.stop(); 
             }  
             if (bulletX >= enemy3X + 10 && bulletX <= enemy3X + 10 // within the width of the enemy
                            && bulletY <= 10 && bulletY >= 0)       // within the vertical span of the enemy
             {
+               enemy3X = -1000;
                timerBullet.stop();                                 // stop bullet immediately to avoid double score  
                enemy3Timer.stop();               
             }
@@ -195,6 +198,11 @@ public class TimerDemo1 extends JFrame implements KeyListener
       g.drawString("press spacebar to fire bullet", 10, 280);
       g.drawString("press a to move left / d to move right", 10, 310);
       
+      if (enemyX == -1000 && enemy2X == -1000 && enemy3X == -1000)
+         {
+            g.setColor(Color.orange);
+            g.drawString("You win!", 180, 200);
+         }
    }
  
    public void keyTyped(KeyEvent key)
